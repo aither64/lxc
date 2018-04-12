@@ -2227,8 +2227,16 @@ static int lxc_create_network_unpriv_exec(const char *lxcpath, const char *lxcna
 	}
 
 	if (netdev->upscript) {
-		ret = run_script(lxcname, "net", netdev->upscript, "up",
-				 "veth", netdev->priv.veth_attr.veth1, (char*) NULL);
+                char *argv[] = {
+		    "veth",
+		    netdev->link,
+		    netdev->priv.veth_attr.veth1,
+		    NULL,
+		};
+
+		ret = run_script_argv(lxcname, 1, "net",
+				netdev->upscript, "up", argv);
+
 		if (ret) {
                     ERROR("%s - Failed to call upscript %s",
 		         strerror(-ret), netdev->upscript);
