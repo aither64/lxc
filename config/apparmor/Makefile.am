@@ -10,6 +10,7 @@ EXTRA_DIST = \
 	profiles/lxc-default-cgns \
 	profiles/lxc-default-with-mounting \
 	profiles/lxc-default-with-nesting \
+	profiles/lxc-default-docker \
 	usr.bin.lxc-start
 
 
@@ -24,12 +25,14 @@ install-apparmor:
 	$(INSTALL_DATA) $(srcdir)/profiles/lxc-default-cgns $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/
 	$(INSTALL_DATA) $(srcdir)/profiles/lxc-default-with-mounting $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/
 	$(INSTALL_DATA) $(srcdir)/profiles/lxc-default-with-nesting $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/
+	$(INSTALL_DATA) $(srcdir)/profiles/lxc-default-docker $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/
 	$(INSTALL_DATA) $(srcdir)/lxc-containers $(DESTDIR)$(sysconfdir)/apparmor.d/
 	$(INSTALL_DATA) $(srcdir)/usr.bin.lxc-start $(DESTDIR)$(sysconfdir)/apparmor.d/
 
 uninstall-apparmor:
 	rm -f $(DESTDIR)$(sysconfdir)/apparmor.d/usr.bin.lxc-start
 	rm -f $(DESTDIR)$(sysconfdir)/apparmor.d/lxc-containers
+	rm -f $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/lxc-default-docker
 	rm -f $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/lxc-default-with-nesting
 	rm -f $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/lxc-default-with-mounting
 	rm -f $(DESTDIR)$(sysconfdir)/apparmor.d/lxc/lxc-default-cgns
